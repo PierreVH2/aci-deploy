@@ -84,8 +84,8 @@ inputs:
         required: false
         default: ''
     empty-volume:
-        description: 'Set to `true` if Empty volume should be added',
-        required: false,
+        description: 'Set to `true` if Empty volume should be added'
+        required: false
         default: 'false'
     containers:
         description: 'YAML object representing containers in this group'
