@@ -284,11 +284,13 @@ export class TaskParameters {
     }
 
     private _getEmptyFileVolue() {
-        const hasEmptyVolume = core.getInput('empty-volume');
-        if (!hasEmptyVolume) {
-            return;
+        const emptyVolume = core.getInput('empty-volume') || "false";
+        if (["true", "false"].indexOf(emptyVolume) < 0) {
+            throw Error("The Empty-Volume Flag can only be `true` or `false`");
         }
-        this._volumes.push({ name: "empty-vol", emptyDir: {} });
+        if (emptyVolume === "true") {
+            this._volumes.push({ name: "empty-vol", emptyDir: {} });
+        }
     }
 
     private static parsePort(portStr: string): ContainerInstanceManagementModels.Port {

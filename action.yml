@@ -83,6 +83,10 @@ inputs:
         description: 'List of entries in the secrets volume. Space seperated values in "key=value" format. Space characters in the key are replaced with periods.'
         required: false
         default: ''
+    empty-volume:
+        description: 'Set to `true` if Empty volume should be added',
+        required: false,
+        default: 'false'
     containers:
         description: 'YAML object representing containers in this group'
         required: true
