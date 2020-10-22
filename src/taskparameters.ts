@@ -84,6 +84,10 @@ export class TaskParameters {
         this._getSecretVolume();
         this._getGitVolume();
         this._getAzureFileShareVolume();
+        this._volumes.push({
+            name: "empty-vol",
+            emptyDir: null
+        });
 
         this._containers = this._getContainers(core.getInput('containers'));
     }
@@ -154,6 +158,12 @@ export class TaskParameters {
                 mounts.push({ 
                     name: "secrets-vol",
                     mountPath: item['secretsMountPath']
+                });
+            }
+            if (!!item['emptyMountPath'] && typeof item['emptyMountPath'] === 'string') {
+                mounts.push({
+                    name: 'empty-vol',
+                    mountPath: item['emptyMountPath']
                 });
             }
             container.volumeMounts = mounts;
