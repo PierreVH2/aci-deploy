@@ -84,10 +84,7 @@ export class TaskParameters {
         this._getSecretVolume();
         this._getGitVolume();
         this._getAzureFileShareVolume();
-        this._volumes.push({
-            name: "empty-vol",
-            emptyDir: {}
-        });
+        this._getEmptyFileVolue();
 
         this._containers = this._getContainers(core.getInput('containers'));
     }
@@ -284,6 +281,14 @@ export class TaskParameters {
             vol.readOnly = (afsReadOnly == "true");
         }
         this._volumes.push({ name: "azure-file-share-vol", azureFile: vol });
+    }
+
+    private _getEmptyFileVolue() {
+        const hasEmptyVolume = core.getInput('empty-volume');
+        if (!hasEmptyVolume) {
+            return;
+        }
+        this._volumes.push({ name: "empty-vol", emptyDir: {} });
     }
 
     private static parsePort(portStr: string): ContainerInstanceManagementModels.Port {
